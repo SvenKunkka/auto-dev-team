@@ -1,0 +1,102 @@
+requirement_analysis_task:
+  description: >
+    阅读以下项目目标与需求材料：
+    {project_goal}
+
+    提取问题陈述、明确目标、功能和非功能需求、约束、歧义、假设和验收输入。
+    只负责需求结构化，不制定技术实现，不修改代码。
+  expected_output: >
+    一个结构化RequirementSpec，必须包含：
+    task_id；
+    problem_statement；
+    clarified_goal；
+    functional_requirements；
+    non_functional_requirements；
+    constraints；
+    ambiguities；
+    assumptions；
+    acceptance_inputs；
+    ready_for_planning。
+  agent: requirement_analyst
+  async_execution: false
+
+planning_task:
+  description: >
+    阅读 Requirement Analyst 输出的RequirementSpec以及以下项目目标与需求：
+    {project_goal}
+
+    制定当前唯一一项可执行开发任务，定义允许范围、禁止范围、交付物、
+    验收标准和 required_tests。只负责规划，不直接修改代码。
+    不得发明用户没有提供的需求；信息不足时必须列出 blockers。
+  expected_output: >
+    一份结构化开发任务计划，必须包含：
+    task_id；
+    objective；
+    confirmed_requirements；
+    deliverables；
+    acceptance_criteria；
+    required_tests；
+    forbidden_scope；
+    blockers；
+    ready_for_development。
+  agent: supervisor
+  context:
+    - requirement_analysis_task
+  async_execution: false
+
+development_task:
+  description: >
+    按照 Supervisor 的计划在目标工作区实施真实代码修改并执行 required_tests。
+    不扩大范围、不改变验收标准，不得自行验收。
+  expected_output: >
+    一份开发结果，必须包含：
+    task_id；
+    changed_files；
+    implementation_summary；
+    tests；
+    blockers；
+    ready_for_review。
+  agent: developer
+  context:
+    - planning_task
+  async_execution: false
+
+verification_task:
+  description: >
+    独立检查Developer Evidence和Git状态，重新运行Supervisor批准的required_tests，
+    记录每条命令的退出码、标准输出、错误输出及工作区一致性。
+    只验证，不修改代码，不给出最终业务验收。
+  expected_output: >
+    一份结构化VerificationReport，必须包含：
+    task_id；
+    verification_result；
+    required_tests；
+    test_results；
+    developer_evidence_present；
+    git_commit；
+    changed_files；
+    workspace_status_before；
+    workspace_status_after；
+    issues。
+  agent: verification_engineer
+  context:
+    - planning_task
+    - development_task
+  async_execution: false
+
+acceptance_task:
+  description: >
+    对照RequirementSpec、Supervisor计划、真实代码、Git diff、Developer Evidence
+    和VerificationReport
+    独立验收实际交付物。只读检查，不得修改代码。
+  expected_output: >
+    Markdown 验收报告。正式结论必须以 PASS、FAIL 或 BLOCKED 三者之一开头，
+    并说明逐项验收结果、测试证据和必须修正的问题。
+  agent: acceptance_reviewer
+  context:
+    - requirement_analysis_task
+    - planning_task
+    - development_task
+    - verification_task
+  async_execution: false
+  output_file: output/acceptance_report.md

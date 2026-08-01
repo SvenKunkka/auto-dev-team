@@ -1,0 +1,12 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+output/*
+!output/.gitkeep
+data/*.db
+data/*.db-*
+workspaces/
+logs/
+INSTALL_REPORT.md
