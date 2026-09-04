@@ -1,5 +1,25 @@
 # Auto Dev Platform v1.6
 
+## English Overview
+
+Auto Dev Platform is a local-first task management workspace for coordinating AI-assisted software development. It combines FastAPI, SQLite, an agent runtime, and CrewAI to move a task through five isolated roles: Requirement Analyst, Supervisor, Developer, Verification Engineer, and Acceptance Reviewer.
+
+The platform supports API-based task submission, persistent task state, structured execution logs, health checks, a Next.js dashboard, controlled rework loops, workspace locking, and Git-based evidence. Codex CLI and Claude Code integrations are optional and disabled by default. A `dry_run` / `execute` switch provides an additional safety boundary before an agent is allowed to make changes.
+
+> **Security:** The dashboard is intended for trusted local users. It has no login or multi-user authorization layer, so bind it only to `127.0.0.1` and never expose it directly to the public internet. Keep API keys in local environment files and do not commit secrets.
+
+Quick start:
+
+```bash
+git clone https://github.com/SvenKunkka/auto-dev-team.git
+cd auto-dev-team
+cp .env.example .env
+uv sync
+uv run python backend/main.py
+```
+
+Start the dashboard from `frontend/` with `npm ci && npm run dev`, then open `http://127.0.0.1:3000`.
+
 Auto Dev Platform 是一个基于 FastAPI、SQLite、Agent Runtime 和 CrewAI 的
 AI 开发任务管理平台基础版本。
 
@@ -9,7 +29,7 @@ AI 开发任务管理平台基础版本。
 ## 快速开始
 
 ```bash
-git clone https://github.com/cherish6/auto-dev-team.git
+git clone https://github.com/SvenKunkka/auto-dev-team.git
 cd auto-dev-team
 cp .env.example .env
 uv sync
