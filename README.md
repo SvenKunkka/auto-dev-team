@@ -1,3 +1,7 @@
+<!-- SVENKUNKKA-README-NAV:BEGIN -->
+[中文项目说明](#project-overview-zh) · [English overview](#project-overview-en) · [维护者 X / Maintainer on X](https://x.com/Svenu1s5)
+<!-- SVENKUNKKA-README-NAV:END -->
+
 # Auto Dev Platform v1.6
 
 ## English Overview
@@ -814,3 +818,30 @@ uv run pytest
 
 本项目采用 [MIT License](LICENSE)，允许个人与商业用途、修改和再分发，
 但不提供任何明示或暗示的担保。
+
+
+---
+
+<!-- SVENKUNKKA-PROJECT-INFO:BEGIN -->
+
+<a id="project-overview-zh"></a>
+## 中文项目说明
+
+本地优先的 AI 开发任务平台，以 FastAPI、SQLite、CrewAI 和 Next.js 管理需求分析、监督、开发、验证及验收流程，提供持久化任务、日志、受控返工和 Git 证据。
+
+**使用入口：** 配置 `.env` 后运行 `uv sync` 与 `uv run python backend/main.py`；在 `frontend/` 配置 `.env.local`，运行 `npm ci`、`npm run dev`。
+
+**范围说明：** 界面面向可信本机用户，无登录及多用户权限；真实执行和可选 CLI 集成需要显式配置，默认保持安全开关关闭。
+
+<a id="project-overview-en"></a>
+## English project overview
+
+A local-first AI development task platform using FastAPI, SQLite, CrewAI and Next.js to coordinate requirements, supervision, development, verification and acceptance, with persistent tasks, logs, controlled rework and Git evidence.
+
+**Getting started:** Configure `.env`, then run `uv sync` and `uv run python backend/main.py`. Configure `.env.local` in `frontend/`, then run `npm ci` and `npm run dev`.
+
+**Scope:** The dashboard is for trusted local users and has no login or multi-user authorization. Real execution and optional CLI integrations require explicit configuration; leave safety switches off until configured.
+
+**仓库维护者 / Repository maintainer:** [SvenKunkka](https://github.com/SvenKunkka) · [X / Twitter](https://x.com/Svenu1s5)
+
+<!-- SVENKUNKKA-PROJECT-INFO:END -->
